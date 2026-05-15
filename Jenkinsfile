@@ -16,7 +16,7 @@ pipeline {
 
         stage('Build Containers') {
             steps {
-                sh 'docker-compose build'
+                sh 'docker compose build'
             }
         }
 
@@ -37,8 +37,20 @@ pipeline {
 
         stage('Run Services') {
             steps {
-                sh 'docker-compose up -d'
+                sh 'docker compose up -d'
             }
+        }
+    }
+
+    post {
+        always {
+            echo 'Pipeline completed.'
+        }
+        success {
+            echo 'Build successful!'
+        }
+        failure {
+            echo 'Build failed!'
         }
     }
 }
